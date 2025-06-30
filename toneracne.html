@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Active Acne Toner | FreshFix</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="nav-container">
+  <div class="brand-logo"><span class="fresh">Fresh</span><span class="fix">Fix</span></div>
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li class="dropdown">
+      <a href="#">PRODUCT ▾</a>
+      <ul class="dropdown-content show">
+        <li class="sub-dropdown">
+          <a href="makeup.html">Makeup ▸</a>
+          <ul class="sub-menu">
+            <li><a href="face.html">Face</a></li>
+            <li><a href="lip.html">Lip</a></li>
+            <li><a href="eyes.html">Eyes</a></li>
+          </ul>
+        </li>
+
+        <li class="sub-dropdown">
+          <a href="skincare.html">Skincare ▸</a>
+          <ul class="sub-menu">
+            <li><a href="cleanser.html">Cleanser</a></li>
+            <li><a href="toner.html">Toner</a></li>
+            <li><a href="moisturizer.html">Moisturizer</a></li>
+            <li><a href="sunscreen.html">Sunscreen</a></li>
+          </ul>
+        </li>
+
+        <!-- Bodycare -->
+        <li class="sub-dropdown">
+          <a href="bodycare.html">Bodycare ▸</a>
+          <ul class="sub-menu">
+            <li><a href="bodywash.html">Body Wash</a></li>
+            <li><a href="lotion.html">Lotion</a></li>
+          </ul>
+        </li>
+
+        <!-- Haircare -->
+        <li class="sub-dropdown">
+          <a href="haircare.html">Haircare ▸</a>
+          <ul class="sub-menu">
+            <li><a href="shampoo.html">Shampoo</a></li>
+            <li><a href="conditioner.html">Conditioner</a></li>
+            <li><a href="hairmask.html">Hair Mask</a></li>
+          </ul>
+        </li>
+
+        <!-- Fragrance -->
+        <li class="sub-dropdown">
+          <a href="fragrance.html">Fragrance ▸</a>
+          <ul class="sub-menu">
+            <li><a href="perfume.html">Perfume</a></li>
+            <li><a href="bodymist.html">Body Mist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li><a href="about_us.html">ABOUT US</a></li>
+    <li><a href="faqs.html">FAQs</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+    <li><a href="cart.html">🛒 Cart (<span id="nav-cart-count">0</span>)</a></li>
+  </ul>
+</div>
+
+<section class="product-detail-page">
+  <div class="product-image">
+    <img id="mainProductImage" src="images/toner2.jpg" alt="Acne-Fighting Toner">
+  </div>
+
+  <div class="product-info">
+    <p class="tag">BLEMISH CARE</p>
+    <h1>ACTIVE ACNE TONER</h1>
+    <p class="price">RM13.00</p>
+
+    <div class="quantity-control">
+      <button class="qty-btn">-</button>
+      <input type="number" value="1" min="1">
+      <button class="qty-btn">+</button>
+    </div>
+
+    <button class="add-cart">ADD TO CART</button>
+
+    <div class="product-description">
+      <h3>Product Description</h3>
+      <p>
+        Fight active breakouts with the FreshFix Acne-Fighting Toner. Formulated with tea tree extract, witch hazel, and niacinamide, this toner helps calm redness, reduce inflammation, and prevent future acne while minimizing the appearance of pores. Alcohol-free and gentle enough for daily use.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const minus = document.querySelector('.qty-btn:first-child');
+  const plus = document.querySelector('.qty-btn:last-child');
+  const input = document.querySelector('.quantity-control input');
+
+  minus.onclick = () => { if (input.value > 1) input.value--; };
+  plus.onclick = () => { input.value++; };
+
+  const addToCartBtn = document.querySelector('.add-cart');
+  addToCartBtn.addEventListener('click', () => {
+    const product = {
+      name: document.querySelector('h1').textContent,
+      price: parseFloat(document.querySelector('.price').textContent.replace('RM', '')),
+      quantity: parseInt(input.value),
+      image: document.getElementById('mainProductImage').src
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItem = cart.find(item => item.name === product.name);
+    if (existingItem) {
+      existingItem.quantity += product.quantity;
+    } else {
+      cart.push(product);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateNavCartCount();
+    alert('Item added to cart!');
+    window.location.href = 'cart.html';
+  });
+
+  function updateNavCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("nav-cart-count").textContent = count;
+  }
+
+  updateNavCartCount();
+</script>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-box">
+      <h3>About FreshFix</h3>
+      <p>We’re a student-made beauty brand focused on fun, freshness, and confidence. Affordable self-care, made for you.</p>
+    </div>
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="about_us.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+      </ul>
+    </div>
+    <div class="footer-box">
+      <h3>Follow Us</h3>
+      <div class="socials">
+        <a href="https://www.instagram.com/freshfix_beauty?igsh=MThtOXR1c2puZmpxbA==" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>This website is not the official website of FreshFix company. This website was developed for the purpose of learning XHTML & CSS only.</p>
+    <p>&copy; 2025 FreshFix. All rights reserved. | <a href="mailto:freshfixbeauty@gmail.com">Contact Us</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
